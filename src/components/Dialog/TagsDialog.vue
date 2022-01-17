@@ -10,12 +10,30 @@ export default {
     data() {
         return {
             searchValue: '',
-            listTags: [],
+            listTags: null
+        }
+    },
+    watch: {
+        searchValue( val: string): void {
+            let backup = this.tagsData;
+            // if ( val != '') {
+            //     this.tagsData = this.tagsData.filter((obj: object) => {
+            //         if (obj.name.toLowerCase().indexOf(val.toLowerCase()) !== -1) {
+            //             return true;
+            //         }
+            //     });
+            // } else {
+            //     this.tagsData = backup;
+            // }
         }
     },
     methods: {
         submitData(data: string): void {
-            this.$emit('selected', data);
+            let prepareData = {
+                type: 'tag',
+                key: data,
+            }
+            this.$emit('selected', prepareData);
         },
         searchTags(): Array {
             // this.listTags.push(this.searchValue);
@@ -31,16 +49,7 @@ export default {
         </div>
         <div class="tag-list">
             <ul class="txt-normal">
-                <li @click="submitData()">Japanese</li>
-                <li>Indochine</li>
-                <li class="disabled">Modern</li>
-                <li>Modern Luxury</li>
-                <li>Indochine</li>
-                <li class="disabled">Modern</li>
-                <li>Modern Luxury</li>
-                <li>Indochine</li>
-                <li class="disabled">Modern</li>
-                <li>Modern Luxury</li>
+                <li v-for="tag in tagsData" :key="tag.id" @click="submitData(tag.name)">{{ tag.name }}</li>
             </ul>
         </div>
     </div>

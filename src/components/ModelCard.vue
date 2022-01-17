@@ -9,11 +9,18 @@ export default {
     data() {
         return {
             mainImage: '',
+            numberOfTag: 0,
+            maxTagShow: 0
         }
     },
     created() {
-        // this.mainImage = this.modelData.image[0];
-        this.mainImage = '/src/assets/imgs/test1.png';
+        this.mainImage = this.modelData.image[0];
+        if (this.modelData.tags.length > 3) {
+            this.numberOfTag = this.modelData.tags.length - 3;
+            this.maxTagShow = 3;
+        } else {
+            this.maxTagShow = this.modelData.tags.length;
+        }
     },
     methods: {
         changeImage(path: string): void {
@@ -29,33 +36,51 @@ export default {
     <div class="model-item">
         <div class="model-img">
             <ul class="thumbnail-img">
-                <li @click="changeImage('/src/assets/imgs/test1.png')">
-                    <img src="/src/assets/imgs/test1.png" alt="test 1" />
-                </li>
-                <li @click="changeImage('/src/assets/imgs/test2.png')">
-                    <img src="/src/assets/imgs/test2.png" alt="test 2" />
-                </li>
-                <li @click="changeImage('/src/assets/imgs/test3.png')">
-                    <img src="/src/assets/imgs/test3.png" alt="test 3" />
+                <li v-for="n in 3" :key="n" @click="changeImage(modelData.image[n - 1])">
+                    <img
+                        :src="modelData.image[n - 1] ? modelData.image[n - 1] : ''"
+                        :alt="modelData.image[n - 1]"
+                        onerror="this.src='/src/assets/imgs/no-image.png';"
+                    />
                 </li>
             </ul>
             <div class="review-img">
                 <div class="overlay">
                     <img class="icon-eye" src="/src/assets/icons/eye-on.svg" alt="eye icon" />
                 </div>
-                <img :src="mainImage" :alt="mainImage" />
+                <img
+                    :src="mainImage ? mainImage : ''"
+                    onerror="this.src='/src/assets/imgs/no-image.png';"
+                    :alt="mainImage"
+                />
             </div>
         </div>
         <div class="model-info">
-            <div class="model-name">modern LAZY CAFFEE CHAIR VERY LONG</div>
-            <div class="model-catagory">Chair > Coffee chair</div>
-            <div class="model-tag">
+            <div class="model-name">{{ modelData.name }}</div>
+            <div class="model-catagory">
                 <ul>
-                    <li @click="submitData">TAG 1</li>
-                    <li>TAG 1</li>
-                    <li>TAG 1</li>
-                    <li>3 more tags</li>
+                    <li>
+                        <span>{{ modelData.category.main }}</span>
+                        <img
+                            src="/src/assets/icons/right-icon.svg"
+                            class="right-icon"
+                            width="8"
+                            height="8"
+                            alt="right icon"
+                        />
+                    </li>
+                    <li>
+                        <span>{{ modelData.category.sub }}</span>
+                    </li>
                 </ul>
+            </div>
+            <div class="model-tag">
+                <div
+                    v-for="n in maxTagShow"
+                    :key="n"
+                    @click="submitData(tag)"
+                >{{ modelData.tags[n - 1] }}</div>
+                <div v-show="numberOfTag > 0">{{ numberOfTag }} more tags</div>
             </div>
         </div>
     </div>
@@ -97,6 +122,7 @@ export default {
         .review-img
             width: 200px
             height: 150px
+            padding-left: 10px
             align-self: center
             position: relative
             img
@@ -127,7 +153,7 @@ export default {
                 cursor: pointer
     .model-info
         height: calc(100% - 170px)
-        padding: 10px
+        padding: 10px 10px 0 10px
         .model-name
             margin-bottom: 15px
             font-weight: 500
@@ -142,22 +168,39 @@ export default {
         .model-catagory
             @include text_size(12px, 20px)
             color: $color-gray-3
-        .model-tag
             ul
                 list-style: none
                 padding: 0
                 margin: 0
                 li
-                    border: 1px solid $color-gray-5
-                    padding: 2px 4px
                     display: inline
-                    font-weight: 500
-                    @include text_size(11px, 13px)
-                    color: $color-gray-2
-                    text-transform: uppercase
-                    &:not(:last-child)
-                        margin-right: 10px
-                    &:hover
-                        border-color: $color-gray-4
-                        cursor: pointer
+                    .right-icon
+                        margin: 0 4px
+        .model-tag
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            div
+                border: 1px solid $color-gray-5
+                padding: 2px 4px
+                font-weight: 500
+                margin-bottom: 10px
+                width: max-content
+                max-width: 85px
+                @include text_size(11px, 13px)
+                color: $color-gray-2
+                text-transform: uppercase
+                text-overflow: ellipsis
+                overflow: hidden
+                display: -webkit-box
+                -webkit-line-clamp: 1
+                -webkit-box-orient: vertical
+                &:not(:last-child)
+                    margin-right: 10px
+                &:hover
+                    border-color: $color-gray-4
+                    cursor: pointer
+                &:last-child
+                    cursor: auto
+                    pointer-events: none
 </style>

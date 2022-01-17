@@ -5,6 +5,9 @@ import ModelCard from '../components/ModelCard.vue';
 import Pagination from '../components/Pagination.vue';
 import TagsService from '../services/TagsService';
 import ModelsService from '../services/ModelsService';
+import StatusService from '../services/StatusService';
+import StyleService from '../services/StyleService';
+import CategoryService from '../services/CategoryService';
 
 export default {
     name: 'ModelsList',
@@ -13,11 +16,21 @@ export default {
         return {
             service: {
                 TagsService,
-                ModelsService
+                ModelsService,
+                StatusService,
+                StyleService,
+                CategoryService
             },
             crumbs: ['Model Listing'],
             isShowOverlay: false,
             paginationData: null,
+            modelListData: null,
+            filterData: {
+                statusList: [],
+                categoryList: [],
+                styleList: [],
+                tagsList: [],
+            },
         };
     },
     watch: {
@@ -34,10 +47,32 @@ export default {
         this.paginationData = {
             totalPage: 4,
             currentPage: 2,
-        },
-        this.service.ModelsService.getModelData();
+        };
+        this.initData();
     },
     methods: {
+        initData(): void {
+            // Get list model
+            this.service.ModelsService.getModelData().then((data: Array<object>) => {
+                this.modelListData = data;
+            });
+            // Get list status
+            this.service.StatusService.getStatusData().then((data: Array<object>) => {
+                this.filterData.statusList = data;
+            });
+            // Get list category
+            this.service.CategoryService.getCategoryData().then((data: Array<object>) => {
+                this.filterData.categoryList = data;
+            });
+            // Get list style
+            this.service.StyleService.getStyleData().then((data: Array<object>) => {
+                this.filterData.styleList = data;
+            });
+            // Get list tag
+            this.service.TagsService.getTagsData().then((data: Array<object>) => {
+                this.filterData.tagsList = data;
+            });
+        },
         toggleOverlay(state: boolean): void {
             this.isShowOverlay = state;
         },
@@ -48,9 +83,9 @@ export default {
         changePage(page: number): void {
             // Get new list
         },
-        updateData(data: any): void {
-            // Get new list
-        }
+        updateData(data: object): void {
+            this.service.ModelsService.getModelResultList(this.modelListData, data);
+        },
     }
 }
 </script>
@@ -63,11 +98,16 @@ export default {
         <div class="model-content-wrapper">
             <div class="list-area">
                 <div class="list-model">
-                    <ModelCard v-for="n in 9" :key="n"></ModelCard>
+                    <ModelCard
+                        v-for="(model, index) in modelListData"
+                        :key="index"
+                        :modelData="model"
+                        @selectedData="updateData"
+                    ></ModelCard>
                 </div>
                 <Pagination :paginationData="paginationData" @changePage="changePage"></Pagination>
             </div>
-            <Filter ref="filter" @selectedData="updateData" @toggleOverlay="toggleOverlay"></Filter>
+            <Filter ref="filter" :filterData="filterData" @selectedData="updateData" @toggleOverlay="toggleOverlay"></Filter>
         </div>
     </div>
     <div @click="closePopup" v-show="isShowOverlay" class="dropdown-overlay"></div>

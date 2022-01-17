@@ -9,22 +9,26 @@ export default {
     },
     data() {
         return {
-            selectedData: '',
+            selectedData: null,
         };
     },
     methods: {
-        submitData(): void {
+        submitData(data: any): void {
             this.$emit('closePopup', false);
+            this.selectedData = {
+                type: 'category',
+                key: data
+            };
             this.$emit('selected', this.selectedData);
         },
-        selectAll(): void {
-            const checkboxes = (document.querySelector('.category-group')).querySelectorAll('input[type="checkbox"]');
+        selectAll(selector: string): void {
+            const checkboxes = (document.querySelector('.' + selector)).querySelectorAll('input[type="checkbox"]');
             for (let checkbox of checkboxes) {
                 checkbox.checked = true;
             }
         },
         deSelectAll(): void {
-            const checkboxes = (document.querySelector('.category-group')).querySelectorAll('input[type="checkbox"]');
+            const checkboxes = (document.querySelector('.list-container')).querySelectorAll('input[type="checkbox"]');
             for (let checkbox of checkboxes) {
                 checkbox.checked = false;
             }
@@ -35,40 +39,25 @@ export default {
 <template>
     <div class="category-dropdown dropdown">
         <div class="list-container">
-            <div class="category-group">
+            <div
+                v-for="category in categoryData"
+                :key="category.id"
+                class="category-group"
+                :class="category.name"
+            >
                 <div class="category-title">
-                    <p class="txt-normal">Chair</p>
-                    <button @click="selectAll">SELECT ALL</button>
+                    <p class="txt-normal">{{ category.name }}</p>
+                    <button @click="selectAll(category.name)">SELECT ALL</button>
                 </div>
                 <div class="category-option">
-                    <label class="checkbox-container" for="a">
-                        <p>Published</p>
-                        <input type="checkbox" name="a" id="a" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="checkbox-container" for="b">
-                        <p>Publishedaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                        <input type="checkbox" name="b" id="b" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="checkbox-container" for="c">
-                        <p>Published</p>
-                        <input type="checkbox" name="c" id="c" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="checkbox-container" for="d">
-                        <p>Published</p>
-                        <input type="checkbox" name="d" id="d" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="checkbox-container" for="e">
-                        <p>Published</p>
-                        <input type="checkbox" name="e" id="e" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="checkbox-container" for="f">
-                        <p>Published</p>
-                        <input type="checkbox" name="f" id="f" />
+                    <label
+                        v-for="(subCaegory,index) in category.sub"
+                        :key="index"
+                        class="checkbox-container"
+                        :for="subCaegory.name"
+                    >
+                        <p>{{ subCaegory.name }}</p>
+                        <input type="checkbox" :name="category.name" :id="subCaegory.name" />
                         <span class="checkmark"></span>
                     </label>
                 </div>
@@ -86,8 +75,8 @@ export default {
 @import "./src/assets/css/common"
 
 .category-dropdown
-    width: 445px
-    max-height: 430px
+    width: 450px
+    max-height: 440px
     display: flex
     right: 0
     flex-direction: column

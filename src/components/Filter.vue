@@ -3,9 +3,20 @@ import CategoryDialog from "./Dialog/CategoryDialog.vue";
 import StyleDialog from "./Dialog/StyleDialog.vue";
 import TagsDialog from "./Dialog/TagsDialog.vue";
 
+export interface FilterDTO {
+    type: string,
+    key: any,
+}
+
 export default {
     name: "FilterComponent",
     components: { CategoryDialog, StyleDialog, TagsDialog },
+    props: {
+        filterData: {
+            type: Object,
+            required: true,
+        }
+    },
     data() {
         return {
             isShowCategoryFilter: false,
@@ -14,6 +25,9 @@ export default {
             isShowOverlay: false,
             colectedData: null,
         };
+    },
+    mounted() {
+        console.log("aaaa", this.filterData.styleList);
     },
     methods: {
         toggleCategoryFilter(): void {
@@ -41,7 +55,9 @@ export default {
             this.isShowOverlay = false;
             this.toggleOverlay(false);
         },
-        submitData(data: any): void {
+        submitData(data: object): void {
+            console.log("quoc", data);
+
             this.$emit('selectedData', data);
         }
     },
@@ -52,29 +68,16 @@ export default {
         <div class="status-filter">
             <p class="title">Status</p>
             <ul class="status-list txt-normal">
-                <li>
-                    <label class="checkbox-container" for="draft">
-                        Draft
+                <li v-for="status in filterData.statusList" :key="status.id">
+                    <label class="checkbox-container" :for="status.id">
+                        {{ status.name }}
                         <input
-                            @click="submitData('status')"
+                            @click="submitData({ type: 'style', key: status.id })"
                             type="checkbox"
-                            name="draft"
-                            id="draft"
+                            name="status"
+                            :id="status.id"
+                            :value="status.id"
                         />
-                        <span class="checkmark"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="checkbox-container" for="reviewing">
-                        Reviewing
-                        <input type="checkbox" name="reviewing" id="reviewing" />
-                        <span class="checkmark"></span>
-                    </label>
-                </li>
-                <li>
-                    <label class="checkbox-container" for="published">
-                        Published
-                        <input type="checkbox" name="published" id="published" />
                         <span class="checkmark"></span>
                     </label>
                 </li>
@@ -96,6 +99,7 @@ export default {
             </div>
             <CategoryDialog
                 v-show="isShowCategoryFilter"
+                :categoryData="filterData.categoryList"
                 @closePopup="closePopup"
                 @selected="submitData"
             ></CategoryDialog>
@@ -114,7 +118,11 @@ export default {
                     />
                 </button>
             </div>
-            <StyleDialog v-show="isShowStyleFilter" @selected="submitData"></StyleDialog>
+            <StyleDialog
+                v-show="isShowStyleFilter"
+                :styleData="filterData.styleList"
+                @selected="submitData"
+            ></StyleDialog>
         </div>
         <div class="tag-filter">
             <p class="title">Tag</p>
@@ -131,7 +139,11 @@ export default {
                     <p>Add</p>
                 </div>
             </div>
-            <TagsDialog v-show="isShowTagFilter" @selected="submitData"></TagsDialog>
+            <TagsDialog
+                v-show="isShowTagFilter"
+                :tagsData="filterData.tagsList"
+                @selected="submitData"
+            ></TagsDialog>
         </div>
     </div>
 </template>

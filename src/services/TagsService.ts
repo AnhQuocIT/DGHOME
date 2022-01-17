@@ -6,7 +6,11 @@ export default (function () {
         getTagsData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {
-                    resolve(res.data.tags);
+                    if (res.status == 200) {
+                        resolve(res.data.tags);
+                    } else {
+                        throw new Error(res.statusText);
+                    }
                 }).catch((res: any) => {
                     reject(res);
                 });

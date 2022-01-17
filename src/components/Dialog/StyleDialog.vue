@@ -13,7 +13,11 @@ export default {
     },
     methods: {
         submitData(data: string): void {
-            this.$emit('selected', data);
+            let prepareData = {
+                type: 'style',
+                key: data
+            }
+            this.$emit('selected', prepareData);
         },
     }
 }
@@ -21,14 +25,11 @@ export default {
 <template>
     <div class="style-dropdown dropdown">
         <ul class="txt-normal">
-            <li @click="submitData()">Japanese</li>
-            <li>Indochine</li>
-            <li class="disabled">Modern</li>
-            <li>Modern Luxury</li>
-            <li>Scandinavian</li>
-            <li>Japanese</li>
-            <li>Japanese</li>
-            <li>Japanese</li>
+            <li
+                v-for="style in styleData"
+                :key="style.id"
+                @click="submitData(style.id)"
+            >{{ style.name }}</li>
         </ul>
     </div>
 </template>

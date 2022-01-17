@@ -6,7 +6,11 @@ export default (function () {
         getStyleData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {
-                    resolve(res.data.styles);
+                    if (res.status == 200) {
+                        resolve(res.data.styles);
+                    } else {
+                        throw new Error(res.statusText);
+                    }
                 }).catch((res: any) => {
                     reject(res);
                 });
