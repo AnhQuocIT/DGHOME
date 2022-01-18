@@ -18,6 +18,7 @@ export default {
     methods: {
         changePage(page: number): void {
             if (page != this.currentPage) {
+                this.currentPage = page;
                 this.$emit('changePage', page);
             }
         }

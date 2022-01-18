@@ -13,43 +13,68 @@ export default {
             listTags: null
         }
     },
-    watch: {
-        searchValue( val: string): void {
-            let backup = this.tagsData;
-            // if ( val != '') {
-            //     this.tagsData = this.tagsData.filter((obj: object) => {
-            //         if (obj.name.toLowerCase().indexOf(val.toLowerCase()) !== -1) {
-            //             return true;
-            //         }
-            //     });
-            // } else {
-            //     this.tagsData = backup;
-            // }
+    computed: {
+        listTags(): void {
+            if (this.searchValue != '') {
+                return this.tagsData.filter((obj: object) => {
+                    if (obj.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1) {
+                        return obj;
+                    }
+                });
+            } else {
+                return this.tagsData;
+            }
         }
     },
     methods: {
+        /**
+         * Add more data for tags list
+         */
+        updateData(data: Array<object>) {
+            this.tagsData.forEach((obj: object) => {
+                data.forEach((item: string) => {
+                    if (obj.name == item) {
+                        obj['selected'] = true;
+                        return;
+                    }
+                });
+            });
+        },
+        /**
+         * Submit data to filter
+         */
         submitData(data: string): void {
             let prepareData = {
                 type: 'tag',
                 key: data,
             }
             this.$emit('selected', prepareData);
+            this.$emit('closePopup', false);
         },
-        searchTags(): Array {
-            // this.listTags.push(this.searchValue);
-            return this.listTags;
-        }
     }
 }
 </script>
 <template>
     <div class="tag-dropdown dropdown">
         <div class="search-area">
-            <input @keyup="searchTags" v-model="searchValue" type="text" placeholder="Search for tags..." name="tag-search" id="tag-search" />
+            <input
+                @keyup="searchTags"
+                v-model="searchValue"
+                type="text"
+                placeholder="Search for tags..."
+                name="tag-search"
+                id="tag-search"
+                autocomplete="false"
+            />
         </div>
         <div class="tag-list">
             <ul class="txt-normal">
-                <li v-for="tag in tagsData" :key="tag.id" @click="submitData(tag.name)">{{ tag.name }}</li>
+                <li
+                    :class="tag.selected ? 'disabled' : ''"
+                    v-for="tag in listTags"
+                    :key="tag.id"
+                    @click="submitData(tag.name)"
+                >{{ tag.name }}</li>
             </ul>
         </div>
     </div>
@@ -74,20 +99,23 @@ export default {
         display: flex
         flex-direction: column
         height: 224px
-        margin: 0 0 10px 20px
-        padding-right: 20px
         ul
             list-style: none
             margin: 0 0 10px
             padding: 0
+            width: 100%
             li
-                padding: 5px
-                height: 33px
+                padding: 5px 20px
+                height: 55px
+                display: flex
+                align-items: center
                 align-self: stretch
                 color: $color-gray-2
                 &:hover
                     cursor: pointer
-                    background-color: $color-gray-5
+                    background-color: $color-primary
+                    color: $color-white
+
                 &:not(:last-child)
                     box-shadow: 0 1px 0 $color-white-smoke
                     margin-bottom: 10px

@@ -21,23 +21,24 @@ export default (function () {
             return data.map((item: object) => { return item[attr]; });
         },
         getModelResultList(listData: Array<object>, option: object): Array<object> {
-            let type: string = option.type;
-            let key: any = option.key;
-            if (type == "name") {
-                return this.getFilterWithName(listData, key);
+            let result = listData;
+            // Search status
+            if (option.statusFilter != null && option.statusFilter.length > 0) {
+                result = this.getFilterWithStatus(result, option.statusFilter);
             }
-            if (type == "status") {
-                return this.getFilterWithStatus(listData, key);
+            // Search category
+            if (option.categoryFilter!= null && option.categoryFilter.sub != null) {
+                result = this.getFilterWithCategory(result, option.categoryFilter);
             }
-            if (type == "category") {
-                return this.getFilterWithCategory(listData, key);
+            // Search style
+            if (option.styleFilter != null) {
+                result = this.getFilterWithStyle(result, option.styleFilter);
             }
-            if (type == "style") {
-                return this.getFilterWithStyle(listData, key);
+            // Search style
+            if (option.tagFilter != null && option.tagFilter.length > 0) {
+                result = this.getFilterWithTag(result, option.tagFilter);
             }
-            if (type == "tag") {
-                return this.getFilterWithTag(listData, key);
-            }
+            return result;
         },
         getFilterWithName(data: Array<object>, key: string): Array<object> {
             return data.filter((obj: object) => {
@@ -46,16 +47,18 @@ export default (function () {
                 }
             });
         },
-        getFilterWithStatus(data: Array<object>, key: number): Array<object> {
+        getFilterWithStatus(data: Array<object>, key: Array): Array<object> {
             return data.filter((obj: object) => {
-                if (obj.status == key) {
-                    return true;
-                }
+                return obj.status.find((item: string) => {
+                    if (key.includes(item) == true) {
+                        return true;
+                    }
+                });
             });
         },
         getFilterWithCategory(data: Array<object>, key: object): Array<object> {
             return data.filter((obj: object) => {
-                if (obj.category.main == key.main) {
+                if (key.main.includes(obj.category.main) == true) {
                     if (key.sub.includes(obj.category.sub) == true) {
                         return true;
                     }

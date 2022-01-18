@@ -13,15 +13,15 @@
                 "sub": "Chair 2"
             },
             "tags": [
-                "tag 1",
-                "tag 2 test",
-                "tag 3 test test test",
-                "tag 4",
-                "tag 5",
+                "Tag 1",
+                "Tag 2 test",
+                "Tag 3 test test test",
+                "Tag 4",
+                "Tag 5",
                 "Tag test",
                 "Tag test 2"
             ],
-            "status": 1,
+            "status": [1],
             "style" : 1
         },
         {
@@ -36,13 +36,13 @@
                 "sub": "Chair 3"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 2,
+            "status": [2],
             "style" : 2
         },
         {
@@ -57,15 +57,15 @@
                 "sub": "Table 2"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5",
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5",
                 "Tag test",
                 "Tag test 2"
             ],
-            "status": 3,
+            "status": [3],
             "style" : 3
         },
         {
@@ -81,13 +81,13 @@
                 "sub": "Table 4"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 1,
+            "status": [1],
             "style" : 4
         },
         {
@@ -103,15 +103,15 @@
                 "sub": "Table 1"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5",
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5",
                 "Tag test",
                 "Tag test 2"
             ],
-            "status": 2,
+            "status": [2],
             "style" : 5
         },
         {
@@ -127,13 +127,13 @@
                 "sub": "Chair 4"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 3,
+            "status": [3],
             "style" : 6
         },
         {
@@ -149,13 +149,13 @@
                 "sub": "Chair 1"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 1,
+            "status": [1],
             "style" : 7
         },
         {
@@ -171,13 +171,13 @@
                 "sub": "Cabinet 1"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 2,
+            "status": [2],
             "style" : 8
         },
         {
@@ -193,13 +193,13 @@
                 "sub": "Cabinet 3"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 3,
+            "status": [3],
             "style" : 9
         },
         {
@@ -215,13 +215,13 @@
                 "sub": "Cabinet 4"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 1,
+            "status": [1],
             "style" : 10
         },
         {
@@ -237,13 +237,13 @@
                 "sub": "Cabinet 2"
             },
             "tags": [
-                "tag 1",
-                "tag 2",
-                "tag 3",
-                "tag 4",
-                "tag 5"
+                "Tag 1",
+                "Tag 2",
+                "Tag 3",
+                "Tag 4",
+                "Tag 5"
             ],
-            "status": 2,
+            "status": [2],
             "style" : 1
         },
         {
@@ -259,10 +259,9 @@
                 "sub": "Cabinet 3"
             },
             "tags": [
-                "tag 1",
-                "tag 2"
+                "Tag 10"
             ],
-            "status": 3,
+            "status": [3],
             "style" : 2
         }
     ],

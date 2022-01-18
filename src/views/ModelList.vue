@@ -23,7 +23,11 @@ export default {
             },
             crumbs: ['Model Listing'],
             isShowOverlay: false,
-            paginationData: null,
+            paginationData: {
+                maxItemOnPage: 9,
+                totalPage: 0,
+                currentPage: 0,
+            },
             modelListData: null,
             filterData: {
                 statusList: [],
@@ -31,6 +35,7 @@ export default {
                 styleList: [],
                 tagsList: [],
             },
+            backupModelList: [],
         };
     },
     watch: {
@@ -44,17 +49,16 @@ export default {
         }
     },
     created() {
-        this.paginationData = {
-            totalPage: 4,
-            currentPage: 2,
-        };
+        this.paginationData.currentPage = 1;
         this.initData();
     },
     methods: {
         initData(): void {
             // Get list model
             this.service.ModelsService.getModelData().then((data: Array<object>) => {
-                this.modelListData = data;
+                this.backupModelList = data;
+                this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
+                this.modelListData = this.backupModelList.slice((this.paginationData.currentPage - 1) * this.paginationData.maxItemOnPage, this.paginationData.currentPage * this.paginationData.maxItemOnPage);
             });
             // Get list status
             this.service.StatusService.getStatusData().then((data: Array<object>) => {
@@ -81,10 +85,17 @@ export default {
             this.$refs.filter.closePopup();
         },
         changePage(page: number): void {
-            // Get new list
+            this.paginationData.currentPage = page;
+            this.modelListData = this.backupModelList.slice((page - 1) * this.paginationData.maxItemOnPage, page * this.paginationData.maxItemOnPage);
         },
         updateData(data: object): void {
-            this.service.ModelsService.getModelResultList(this.modelListData, data);
+            this.service.ModelsService.getModelData().then((modelData: Array<object>) => {
+                this.backupModelList = this.service.ModelsService.getModelResultList(modelData, data);
+                this.paginationData.currentPage = 1;
+                this.$refs.pagination.currentPage = 1;
+                this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
+                this.modelListData = this.backupModelList.slice((this.paginationData.currentPage - 1) * this.paginationData.maxItemOnPage, this.paginationData.currentPage * this.paginationData.maxItemOnPage);
+            });
         },
     }
 }
@@ -93,7 +104,7 @@ export default {
 <template>
     <div class="model-container">
         <div class="breadscrum-area">
-            <Breadcrumb :crumbs="crumbs" @selected="crumbSelected"></Breadcrumb>
+            <Breadcrumb :crumbs="crumbs"></Breadcrumb>
         </div>
         <div class="model-content-wrapper">
             <div class="list-area">
@@ -105,9 +116,14 @@ export default {
                         @selectedData="updateData"
                     ></ModelCard>
                 </div>
-                <Pagination :paginationData="paginationData" @changePage="changePage"></Pagination>
+                <Pagination ref="pagination" :paginationData="paginationData" @changePage="changePage"></Pagination>
             </div>
-            <Filter ref="filter" :filterData="filterData" @selectedData="updateData" @toggleOverlay="toggleOverlay"></Filter>
+            <Filter
+                ref="filter"
+                :filterData="filterData"
+                @selectedData="updateData"
+                @toggleOverlay="toggleOverlay"
+            ></Filter>
         </div>
     </div>
     <div @click="closePopup" v-show="isShowOverlay" class="dropdown-overlay"></div>

@@ -9,28 +9,69 @@ export default {
     },
     data() {
         return {
-            selectedData: null,
+            selectedData: {
+                main: [],
+                sub: [],
+            },
         };
     },
     methods: {
-        submitData(data: any): void {
-            this.$emit('closePopup', false);
-            this.selectedData = {
+        /**
+         * Submit data for filter
+         */
+        submitData(): void {
+            let data = {
                 type: 'category',
-                key: data
+                key: this.selectedData,
             };
-            this.$emit('selected', this.selectedData);
+            this.$emit('selected', data);
+            this.$emit('closePopup', false);
         },
+        /**
+         * Select all checkbox
+         */
         selectAll(selector: string): void {
             const checkboxes = (document.querySelector('.' + selector)).querySelectorAll('input[type="checkbox"]');
+            this.selectedData['main'].push(selector);
             for (let checkbox of checkboxes) {
                 checkbox.checked = true;
+                this.selectedData['sub'].push(checkbox.value);
             }
         },
+        /**
+         * Deselect all checkbox
+         */
         deSelectAll(): void {
             const checkboxes = (document.querySelector('.list-container')).querySelectorAll('input[type="checkbox"]');
             for (let checkbox of checkboxes) {
                 checkbox.checked = false;
+            }
+            this.selectedData = {
+                main: [],
+                sub: [],
+            };
+        },
+        /**
+         * Select checkbox
+         */
+        onChange(main: string, sub: string, $event: any): void {
+            // debugger
+            if ($event.target.checked == true) {
+                if (this.selectedData.main.includes(main) == false) {
+                    this.selectedData.main.push(main);
+                }
+                if (this.selectedData.sub.includes(sub) == false) {
+                    this.selectedData.sub.push(sub);
+                }
+            } else {
+                let index = -1;
+                index = this.selectedData.sub.indexOf($event.target.value);
+                if (index > -1) {
+                    this.selectedData.sub.splice(index, 1);
+                }
+                if (this.selectedData.sub.length < 1) {
+                    this.selectedData.main = [];
+                }
             }
         }
     }
@@ -57,7 +98,13 @@ export default {
                         :for="subCaegory.name"
                     >
                         <p>{{ subCaegory.name }}</p>
-                        <input type="checkbox" :name="category.name" :id="subCaegory.name" />
+                        <input
+                            type="checkbox"
+                            @change="onChange(category.name, subCaegory.name, $event)"
+                            :name="category.name"
+                            :value="subCaegory.name"
+                            :id="subCaegory.name"
+                        />
                         <span class="checkmark"></span>
                     </label>
                 </div>
