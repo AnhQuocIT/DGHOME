@@ -10,7 +10,6 @@ export default {
     data() {
         return {
             searchValue: '',
-            listTags: null
         }
     },
     computed: {
@@ -88,7 +87,8 @@ export default {
     height: 310px
     overflow: hidden
     right: 0
-    bottom: 50px
+    @media only screen and (max-height: 850px)
+        bottom: 50px
     .search-area
         display: flex
         input
@@ -109,13 +109,11 @@ export default {
                 height: 55px
                 display: flex
                 align-items: center
-                align-self: stretch
                 color: $color-gray-2
                 &:hover
                     cursor: pointer
                     background-color: $color-primary
                     color: $color-white
-
                 &:not(:last-child)
                     box-shadow: 0 1px 0 $color-white-smoke
                     margin-bottom: 10px

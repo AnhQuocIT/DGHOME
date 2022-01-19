@@ -34,8 +34,8 @@ export default {
                 >{{ style.name }}</li>
             </ul>
         </div>
-        <div @click="submitData(null)" class="clear-btn">
-            <p>Clear</p>
+        <div class="clear-btn">
+            <p @click="submitData(null)">Clear</p>
         </div>
     </div>
 </template>
@@ -45,26 +45,24 @@ export default {
 @import "./src/assets/css/common"
 .style-dropdown
     width: 340px
-    height: 280px
-    right: 0
-    border-radius: 4px
+    height: 300px
     display: flex
     flex-direction: column
+    right: 0
+    border-radius: 4px
     .list-style
         height: 100%
         overflow-y: auto
+        margin-top: 20px
         ul
             list-style: none
             margin: 0
             padding: 0
-            width: 100%
-            height: 100%
             li
                 padding: 20px
                 height: 55px
                 display: flex
                 align-items: center
-                align-self: stretch
                 color: $color-gray-2
                 &:hover
                     cursor: pointer
@@ -86,9 +84,9 @@ export default {
         padding-left: 10px
         border-top: 1px solid $color-gray-4
         p
-            padding: 10px 20px
             display: flex
             align-items: center
+            padding: 10px 20px
             color: $color-primary
             border-radius: 4px
             &:hover

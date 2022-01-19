@@ -22,12 +22,15 @@ export default (function () {
         },
         getModelResultList(listData: Array<object>, option: object): Array<object> {
             let result = listData;
+            if (option.name != null && option.name != '') {
+                return this.getFilterWithName(listData, option.name);
+            }
             // Search status
             if (option.statusFilter != null && option.statusFilter.length > 0) {
                 result = this.getFilterWithStatus(result, option.statusFilter);
             }
             // Search category
-            if (option.categoryFilter!= null && option.categoryFilter.sub != null) {
+            if (option.categoryFilter != null && option.categoryFilter.sub != null) {
                 result = this.getFilterWithCategory(result, option.categoryFilter);
             }
             // Search style

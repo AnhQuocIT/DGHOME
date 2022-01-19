@@ -26,9 +26,6 @@ export default {
         changeImage(path: string): void {
             this.mainImage = path;
         },
-        submitData(data: string): void {
-            this.$emit('selectedData', data);
-        }
     }
 }
 </script>
@@ -78,7 +75,6 @@ export default {
                 <div
                     v-for="n in maxTagShow"
                     :key="n"
-                    @click="submitData(tag)"
                 >{{ modelData.tags[n - 1] }}</div>
                 <div v-show="numberOfTag > 0">{{ numberOfTag }} more tags</div>
             </div>
@@ -157,6 +153,7 @@ export default {
         .model-name
             margin-bottom: 15px
             font-weight: 500
+            height: 38px
             @include text_size(16px, 19px)
             text-transform: uppercase
             color: $color-gray-1
@@ -197,9 +194,6 @@ export default {
                 -webkit-box-orient: vertical
                 &:not(:last-child)
                     margin-right: 10px
-                &:hover
-                    border-color: $color-gray-4
-                    cursor: pointer
                 &:last-child
                     cursor: auto
                     pointer-events: none

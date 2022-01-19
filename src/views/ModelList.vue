@@ -8,12 +8,14 @@ import ModelsService from '../services/ModelsService';
 import StatusService from '../services/StatusService';
 import StyleService from '../services/StyleService';
 import CategoryService from '../services/CategoryService';
+import store from '../store';
 
 export default {
     name: 'ModelsList',
     components: { Breadcrumb, Filter, ModelCard, Pagination },
     data() {
         return {
+            store: store,
             service: {
                 TagsService,
                 ModelsService,
@@ -36,7 +38,13 @@ export default {
                 tagsList: [],
             },
             backupModelList: [],
+            listModelName: [],
         };
+    },
+    computed: {
+        searchNameKey(): void {
+            return this.store.state.searchKey;
+        }
     },
     watch: {
         isShowOverlay(val: boolean) {
@@ -46,6 +54,9 @@ export default {
             } else {
                 contentEl.style.overflow = "";
             }
+        },
+        searchNameKey(name: string) {
+            this.updateData({ name });
         }
     },
     created() {
@@ -53,12 +64,17 @@ export default {
         this.initData();
     },
     methods: {
+        /**
+         * Initial data
+         */
         initData(): void {
             // Get list model
             this.service.ModelsService.getModelData().then((data: Array<object>) => {
                 this.backupModelList = data;
                 this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
                 this.modelListData = this.backupModelList.slice((this.paginationData.currentPage - 1) * this.paginationData.maxItemOnPage, this.paginationData.currentPage * this.paginationData.maxItemOnPage);
+                this.listModelName = this.service.ModelsService.getModelAttrList(data, 'name');
+                this.store.dispatch('updateListName', this.listModelName);
             });
             // Get list status
             this.service.StatusService.getStatusData().then((data: Array<object>) => {
@@ -77,20 +93,35 @@ export default {
                 this.filterData.tagsList = data;
             });
         },
+        /**
+         * Toggle overlay
+         * @param state show/hide state
+         */
         toggleOverlay(state: boolean): void {
             this.isShowOverlay = state;
         },
+        /**
+         * Close all filter popup
+         */
         closePopup(): void {
             this.isShowOverlay = false;
             this.$refs.filter.closePopup();
         },
+        /**
+         * Request change page
+         * @param page page number will request
+         */
         changePage(page: number): void {
             this.paginationData.currentPage = page;
             this.modelListData = this.backupModelList.slice((page - 1) * this.paginationData.maxItemOnPage, page * this.paginationData.maxItemOnPage);
         },
-        updateData(data: object): void {
+        /**
+         * Update data base on search key
+         * @param key search key
+         */
+        updateData(key: object): void {
             this.service.ModelsService.getModelData().then((modelData: Array<object>) => {
-                this.backupModelList = this.service.ModelsService.getModelResultList(modelData, data);
+                this.backupModelList = this.service.ModelsService.getModelResultList(modelData, key);
                 this.paginationData.currentPage = 1;
                 this.$refs.pagination.currentPage = 1;
                 this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
@@ -116,7 +147,11 @@ export default {
                         @selectedData="updateData"
                     ></ModelCard>
                 </div>
-                <Pagination ref="pagination" :paginationData="paginationData" @changePage="changePage"></Pagination>
+                <Pagination
+                    ref="pagination"
+                    :paginationData="paginationData"
+                    @changePage="changePage"
+                ></Pagination>
             </div>
             <Filter
                 ref="filter"

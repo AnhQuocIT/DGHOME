@@ -1,10 +1,11 @@
 @import "./src/assets/css/constants"
+*
+    box-sizing: border-box
+
 html, body
     height: 100%
     width: 100%
     border: 1px solid $color-gray-4
-*
-    box-sizing: border-box
 
 body
     margin: 0
@@ -43,34 +44,42 @@ h5
 h6
     @include text_size(20px, 22px)
 
+// Text large bold
 .txt-large-bold
     @include text_size(20px, 28px)
     font-weight: 700
 
+// Text large
 .txt-large
     @include text_size(20px, 28px)
     font-weight: 400
 
+// Text medium bold
 .txt-medium-bold
     @include text_size(18px, 25.2px)
     font-weight: 700
 
+// Text medium
 .txt-medium
     @include text_size(18px, 25.2px)
     font-weight: 400
 
+// Text normal bold
 .txt-normal-bold
     @include text_size(16px, 22.4px)
     font-weight: 700
 
+// Text normal
 .txt-normal
     @include text_size(16px, 22.4px)
     font-weight: 400
 
+// Text small bold
 .txt-small-bold
     @include text_size(14px, 19.6px)
     font-weight: 700
 
+// Text small
 .txt-small
     @include text_size(14px, 19.6px)
     font-weight: 400
@@ -139,12 +148,12 @@ button
         height: 55px
         width: 100%
         border: 1px solid $color-gray-4
+        border-radius: 4px
         padding: 16px 24px
         padding-right: 60px
         text-align: start
         background: $color-white
         cursor: pointer
-        border-radius: 4px
         white-space: nowrap
         text-overflow: ellipsis
         overflow: hidden
@@ -192,6 +201,7 @@ input[type="text"]
         outline: none
 // Custom style for input text [E]
 
+// Custom style for pagination [S]
 .pagination-btn
     border: 1px solid $color-gray-3
     border-radius: 4px
@@ -213,6 +223,7 @@ input[type="text"]
         color: $color-gray-5
         cursor: auto
         pointer-events: none
+// Custom style for pagination [S]
 
 
 
