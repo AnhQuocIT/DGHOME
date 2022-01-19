@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import ModelsService from "../services/ModelsService";
 import store from "../store";
-export default {
+export default defineComponent({
     name: 'Header',
     data() {
         return {
@@ -32,7 +33,7 @@ export default {
         },
     },
     computed: {
-        listName(): void {
+        listName(): Array<any> {
             this.maxItem = 6;
             if (this.searchQuery != '') {
                 return this.store.state.listModelName.filter((item: string) => {
@@ -68,13 +69,13 @@ export default {
             this.searchQuery = value;
             this.isShowAutoComplete = false;
             this.isSelectedName = true;
-            document.getElementById("search").focus();
+            (document.getElementById("search") as any).focus();
         },
         /**
          * Handle for enter key
          * @param $event element event
          */
-        handleEnter($event): void {
+        handleEnter($event: any): void {
             if ($event.key === "Enter") {
                 this.handleSearch();
             }
@@ -105,7 +106,7 @@ export default {
             this.maxItem += 6;
         }
     }
-}
+})
 </script>
 <template>
     <div class="topbar-wrapper">

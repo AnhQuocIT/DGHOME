@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import CategoryDialog from "./Dialog/CategoryDialog.vue";
 import StyleDialog from "./Dialog/StyleDialog.vue";
 import TagsDialog from "./Dialog/TagsDialog.vue";
@@ -8,7 +9,7 @@ export interface FilterDTO {
     key: any,
 }
 
-export default {
+export default defineComponent({
     name: "FilterComponent",
     components: { CategoryDialog, StyleDialog, TagsDialog },
     props: {
@@ -24,13 +25,13 @@ export default {
             isShowTagFilter: false,
             isShowOverlay: false,
             colectedData: null,
-            selectedTags: [],
+            selectedTags: [] as Array<string>,
             filteredData: null,
             filterKey: {
-                statusFilter: [],
-                categoryFilter: null,
+                statusFilter: [] as Array<any>,
+                categoryFilter: null as any,
                 styleFilter: null,
-                tagFilter: [],
+                tagFilter: [] as Array<any>,
             },
         };
     },
@@ -55,7 +56,7 @@ export default {
          * Show/Hide tag dialog
          */
         toggleTagFilter(): void {
-            this.$refs.tagDialog.updateData(this.selectedTags);
+            (this.$refs['tagDialog'] as any).updateData(this.selectedTags);
             this.isShowTagFilter = !this.isShowTagFilter;
             this.isShowOverlay = !this.isShowOverlay;
             this.toggleOverlay(this.isShowOverlay);
@@ -63,7 +64,7 @@ export default {
         /**
          * Show/Hide overlay
          */
-        toggleOverlay(state): void {
+        toggleOverlay(state: boolean): void {
             this.$emit('toggleOverlay', state);
         },
         /**
@@ -90,7 +91,7 @@ export default {
         /**
          * Request filter
          */
-        submitData(data: object): void {
+        submitData(data: FilterDTO): void {
             // Prepare search key for tag
             if (data.type == "tag") {
                 this.selectedTags.push(data.key);
@@ -98,9 +99,9 @@ export default {
             }
             // Prepare search key for status
             if (data.type == "status") {
-                const checkboxes = (document.querySelector('.status-list')).querySelectorAll('input[type="checkbox"]');
+                const checkboxes = (document.querySelector('.status-list'))!.querySelectorAll('input[type="checkbox"]');
                 let hasChecked = false;
-                checkboxes.forEach((checkbox: object) => {
+                checkboxes.forEach((checkbox: any) => {
                     if (checkbox.checked == true) {
                         hasChecked = true;
                     }
@@ -131,7 +132,7 @@ export default {
             this.$emit('selectedData', this.filterKey);
         }
     },
-}
+})
 </script>
 <template>
     <div class="filter-area">

@@ -2,11 +2,11 @@ import { createStore } from "vuex";
 
 export default createStore({
     state: {
-        listModelName: [],
+        listModelName: [] as Array<string>,
         searchKey: '',
     },
     mutations: {
-        addDataForListName(state, data: Array): void {
+        addDataForListName(state, data: Array<string>): void {
             state.listModelName = data;
         },
         setSearchKey(state, data: string): void {

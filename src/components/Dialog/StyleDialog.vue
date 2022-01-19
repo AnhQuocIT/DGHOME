@@ -1,9 +1,10 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     name: "StyleDialog",
     props: {
         styleData: {
-            type: Array,
+            type: Object,
             required: true,
         }
     },
@@ -12,7 +13,7 @@ export default {
         }
     },
     methods: {
-        submitData(data: string): void {
+        submitData(data: any): void {
             let prepareData = {
                 type: 'style',
                 key: data
@@ -21,7 +22,7 @@ export default {
             this.$emit('closePopup', false);
         },
     }
-}
+})
 </script>
 <template>
     <div class="style-dropdown dropdown">
@@ -53,7 +54,7 @@ export default {
     .list-style
         height: 100%
         overflow-y: auto
-        margin-top: 20px
+        margin-top: 10px
         ul
             list-style: none
             margin: 0

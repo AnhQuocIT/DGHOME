@@ -1,25 +1,26 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import ModelsService from '../services/ModelsService';
 import store from '../store';
 
-export default {
+export default defineComponent({
     name: 'Overview',
     data() {
         return {
             service: {
                 ModelsService
             },
-            listModelName: []
+            listModelName: [] as Array<object>
         }
     },
     created() {
         // Get list model
-        this.service.ModelsService.getModelData().then((data: Array<object>) => {
+        this.service.ModelsService.getModelData().then((data: any) => {
             this.listModelName = this.service.ModelsService.getModelAttrList(data, 'name');
-            this.$store.dispatch('updateListName', this.listModelName);
+            store.dispatch('updateListName', this.listModelName);
         });
     }
-}
+})
 
 </script>
 

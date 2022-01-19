@@ -1,5 +1,6 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         modelData: {
             type: Object,
@@ -27,7 +28,7 @@ export default {
             this.mainImage = path;
         },
     }
-}
+})
 </script>
 <template>
     <div class="model-item">

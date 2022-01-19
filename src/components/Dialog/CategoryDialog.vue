@@ -1,5 +1,6 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     name: "CategoryDialog",
     props: {
         categoryData: {
@@ -10,8 +11,8 @@ export default {
     data() {
         return {
             selectedData: {
-                main: [],
-                sub: [],
+                main: [] as Array<string>,
+                sub: [] as Array<string>,
             },
         };
     },
@@ -31,7 +32,7 @@ export default {
          * Select all checkbox
          */
         selectAll(selector: string): void {
-            const checkboxes = (document.querySelector('.' + selector)).querySelectorAll('input[type="checkbox"]');
+            const checkboxes = (document.querySelector('.' + selector) as any).querySelectorAll('input[type="checkbox"]');
             this.selectedData['main'].push(selector);
             for (let checkbox of checkboxes) {
                 checkbox.checked = true;
@@ -42,7 +43,7 @@ export default {
          * Deselect all checkbox
          */
         deSelectAll(): void {
-            const checkboxes = (document.querySelector('.list-container')).querySelectorAll('input[type="checkbox"]');
+            const checkboxes = (document.querySelector('.list-container') as any).querySelectorAll('input[type="checkbox"]');
             for (let checkbox of checkboxes) {
                 checkbox.checked = false;
             }
@@ -55,7 +56,6 @@ export default {
          * Select checkbox
          */
         onChange(main: string, sub: string, $event: any): void {
-            // debugger
             if ($event.target.checked == true) {
                 if (this.selectedData.main.includes(main) == false) {
                     this.selectedData.main.push(main);
@@ -75,7 +75,7 @@ export default {
             }
         }
     }
-}
+})
 </script>
 <template>
     <div class="category-dropdown dropdown">

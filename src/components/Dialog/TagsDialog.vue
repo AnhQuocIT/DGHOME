@@ -1,5 +1,6 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     name: "TagsDialog",
     props: {
         tagsData: {
@@ -13,9 +14,9 @@ export default {
         }
     },
     computed: {
-        listTags(): void {
+        listTags(): Array<any> {
             if (this.searchValue != '') {
-                return this.tagsData.filter((obj: object) => {
+                return this.tagsData.filter((obj: any) => {
                     if (obj.name.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1) {
                         return obj;
                     }
@@ -30,8 +31,8 @@ export default {
          * Add more data for tags list
          */
         updateData(data: Array<object>) {
-            this.tagsData.forEach((obj: object) => {
-                data.forEach((item: string) => {
+            this.tagsData.forEach((obj: any) => {
+                data.forEach((item: any) => {
                     if (obj.name == item) {
                         obj['selected'] = true;
                         return;
@@ -51,13 +52,12 @@ export default {
             this.$emit('closePopup', false);
         },
     }
-}
+})
 </script>
 <template>
     <div class="tag-dropdown dropdown">
         <div class="search-area">
             <input
-                @keyup="searchTags"
                 v-model="searchValue"
                 type="text"
                 placeholder="Search for tags..."

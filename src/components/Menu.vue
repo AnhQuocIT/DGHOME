@@ -1,5 +1,3 @@
-<script lang="ts">
-</script>
 <template>
     <div class="sidebar-area">
         <ul class="list-menu">

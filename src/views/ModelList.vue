@@ -1,4 +1,5 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import Breadcrumb from '../components/Breadcrumb.vue';
 import Filter from '../components/Filter.vue';
 import ModelCard from '../components/ModelCard.vue';
@@ -10,12 +11,11 @@ import StyleService from '../services/StyleService';
 import CategoryService from '../services/CategoryService';
 import store from '../store';
 
-export default {
+export default defineComponent({
     name: 'ModelsList',
     components: { Breadcrumb, Filter, ModelCard, Pagination },
     data() {
         return {
-            store: store,
             service: {
                 TagsService,
                 ModelsService,
@@ -30,26 +30,26 @@ export default {
                 totalPage: 0,
                 currentPage: 0,
             },
-            modelListData: null,
+            modelListData: [] as Array<object>,
             filterData: {
-                statusList: [],
-                categoryList: [],
-                styleList: [],
-                tagsList: [],
+                statusList: [] as Array<object>,
+                categoryList: [] as Array<object>,
+                styleList: [] as Array<object>,
+                tagsList: [] as Array<object>,
             },
-            backupModelList: [],
-            listModelName: [],
+            backupModelList: [] as Array<object>,
+            listModelName: [] as any,
         };
     },
     computed: {
-        searchNameKey(): void {
-            return this.store.state.searchKey;
+        searchNameKey(): string {
+            return store.state.searchKey;
         }
     },
     watch: {
         isShowOverlay(val: boolean) {
-            const contentEl = document.querySelector(".content-wrapper");
-            if (val == true) {
+            const contentEl: any = document.querySelector(".content-wrapper");
+            if (val && contentEl != null) {
                 contentEl.style.overflow = "hidden";
             } else {
                 contentEl.style.overflow = "";
@@ -67,29 +67,29 @@ export default {
         /**
          * Initial data
          */
-        initData(): void {
+        initData(): any {
             // Get list model
-            this.service.ModelsService.getModelData().then((data: Array<object>) => {
+            this.service.ModelsService.getModelData().then((data: any) => {
                 this.backupModelList = data;
                 this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
                 this.modelListData = this.backupModelList.slice((this.paginationData.currentPage - 1) * this.paginationData.maxItemOnPage, this.paginationData.currentPage * this.paginationData.maxItemOnPage);
                 this.listModelName = this.service.ModelsService.getModelAttrList(data, 'name');
-                this.store.dispatch('updateListName', this.listModelName);
+                store.dispatch('updateListName', this.listModelName);
             });
             // Get list status
-            this.service.StatusService.getStatusData().then((data: Array<object>) => {
+            this.service.StatusService.getStatusData().then((data: any) => {
                 this.filterData.statusList = data;
             });
             // Get list category
-            this.service.CategoryService.getCategoryData().then((data: Array<object>) => {
+            this.service.CategoryService.getCategoryData().then((data: any) => {
                 this.filterData.categoryList = data;
             });
             // Get list style
-            this.service.StyleService.getStyleData().then((data: Array<object>) => {
+            this.service.StyleService.getStyleData().then((data: any) => {
                 this.filterData.styleList = data;
             });
             // Get list tag
-            this.service.TagsService.getTagsData().then((data: Array<object>) => {
+            this.service.TagsService.getTagsData().then((data: any) => {
                 this.filterData.tagsList = data;
             });
         },
@@ -105,7 +105,7 @@ export default {
          */
         closePopup(): void {
             this.isShowOverlay = false;
-            this.$refs.filter.closePopup();
+            (this.$refs['filter'] as any).closePopup();
         },
         /**
          * Request change page
@@ -120,16 +120,16 @@ export default {
          * @param key search key
          */
         updateData(key: object): void {
-            this.service.ModelsService.getModelData().then((modelData: Array<object>) => {
+            this.service.ModelsService.getModelData().then((modelData: any) => {
                 this.backupModelList = this.service.ModelsService.getModelResultList(modelData, key);
                 this.paginationData.currentPage = 1;
-                this.$refs.pagination.currentPage = 1;
+                (this.$refs['pagination'] as any).currentPage = 1;
                 this.paginationData.totalPage = Math.ceil(this.backupModelList.length / this.paginationData.maxItemOnPage);
                 this.modelListData = this.backupModelList.slice((this.paginationData.currentPage - 1) * this.paginationData.maxItemOnPage, this.paginationData.currentPage * this.paginationData.maxItemOnPage);
             });
         },
     }
-}
+})
 </script>
 
 <template>

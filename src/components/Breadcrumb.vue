@@ -1,5 +1,6 @@
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue';
+export default defineComponent({
     props: {
         crumbs: {
             type: Array,
@@ -14,7 +15,7 @@ export default {
             this.$emit('selected', crumb);
         },
     },
-};
+});
 </script>
 <template>
     <ul class="breadcrumb">
