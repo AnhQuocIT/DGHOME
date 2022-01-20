@@ -2,12 +2,12 @@ import Axios from "axios";
 
 export default (function () {
     const stylesMgr = {
-        url: "./src/assets/dummyData/model-data.json",
+        url: "http://localhost:3001/styles",
         getStyleData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {
                     if (res.status == 200) {
-                        resolve(res.data.styles);
+                        resolve(res.data);
                     } else {
                         throw new Error(res.statusText);
                     }

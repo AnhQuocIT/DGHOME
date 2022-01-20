@@ -2,13 +2,13 @@ import Axios from "axios";
 
 export default (function () {
     const modelsMgr = {
-        url: "/src/assets/dummyData/model-data.json",
+        url: "http://localhost:3001/models",
         modelNameList: [],
         getModelData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {
                     if (res.status == 200) {
-                        resolve(res.data.models);
+                        resolve(res.data);
                     } else {
                         throw new Error(res.statusText);
                     }
