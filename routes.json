@@ -1,6 +1,6 @@
 {
-    "/models": "/models",
-    "/status": "/status",
-    "/categories": "/categories",
-    "/styles": "/styles"
+    "/models": "api/models",
+    "/status": "api/status",
+    "/categories": "api/categories",
+    "/styles": "api/styles"
 }

@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export default (function () {
     const categoriesMgr = {
-        url: "https://aqdghome.herokuapp.com/categories",
+        url: "https://aqdghome.herokuapp.com/api/categories",
         getCategoryData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {

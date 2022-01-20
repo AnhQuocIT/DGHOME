@@ -6,7 +6,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "start": "node src/server.js",
-    "db:serve": "json-server --watch model-data.json"
+    "db:serve": "json-server --watch model-data.json --routes routes.json"
   },
   "dependencies": {
     "axios": "^0.24.0",
