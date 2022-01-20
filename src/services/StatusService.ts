@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export default (function () {
     const statusMgr = {
-        url: "https://aqdghome.herokuapp.com/api/status",
+        url: "https://aqdghome.herokuapp.com/status",
         getStatusData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {

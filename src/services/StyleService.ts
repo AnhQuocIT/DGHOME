@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export default (function () {
     const stylesMgr = {
-        url: "https://aqdghome.herokuapp.com/api/styles",
+        url: "https://aqdghome.herokuapp.com/styles",
         getStyleData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {

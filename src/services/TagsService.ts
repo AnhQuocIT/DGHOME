@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export default (function () {
     const tagsMgr = {
-        url: "https://aqdghome.herokuapp.com/api/tags",
+        url: "https://aqdghome.herokuapp.com/tags",
         getTagsData(): Promise<object> {
             return new Promise((resolve, reject) => {
                 Axios.get(this.url).then((res: any) => {
