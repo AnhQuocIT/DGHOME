@@ -2,7 +2,7 @@ import Axios from "axios";
 
 export default (function () {
     const modelsMgr = {
-        url: "http://localhost:3001/models",
+        url: "https://aqdghome.herokuapp.com/models",
         modelNameList: [],
         getModelData(): Promise<object> {
             return new Promise((resolve, reject) => {
