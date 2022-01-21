@@ -38,7 +38,7 @@ export default defineComponent({
                     <img
                         :src="modelData.image[n - 1] ? modelData.image[n - 1] : ''"
                         :alt="modelData.image[n - 1]"
-                        onerror="this.src='/src/assets/imgs/no-image.png';"
+                        onerror="this.src='/assets/no-image.png';"
                     />
                 </li>
             </ul>
@@ -48,7 +48,7 @@ export default defineComponent({
                 </div>
                 <img
                     :src="mainImage ? mainImage : ''"
-                    onerror="this.src='/src/assets/imgs/no-image.png';"
+                    onerror="this.src='/assets/no-image.png';"
                     :alt="mainImage"
                 />
             </div>

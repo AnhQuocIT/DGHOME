@@ -4,9 +4,9 @@
             "id": 1,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 1",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Chair",
@@ -28,8 +28,8 @@
             "id": 2,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 2 ",
             "image": [
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png"
+                "/assets/test2.png",
+                "/assets/test1.png"
             ],
             "category": {
                 "main": "Chair",
@@ -49,8 +49,8 @@
             "id": 3,
             "name": "modern long",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png"
+                "/assets/test1.png",
+                "/assets/test2.png"
             ],
             "category": {
                 "main": "Table",
@@ -69,9 +69,9 @@
             "id": 4,
             "name": "modern very very very very very very very very very very very short",
             "image": [
-                "/src/assets/imgs/test3.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png"
+                "/assets/test3.png",
+                "/assets/test2.png",
+                "/assets/test1.png"
             ],
             "category": {
                 "main": "Table",
@@ -93,9 +93,9 @@
             "id": 5,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 5 Test",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Table",
@@ -117,9 +117,9 @@
             "id": 6,
             "name": "CAFFEE CHAIR VERY LONG 6 ",
             "image": [
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test2.png",
+                "/assets/test1.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Chair",
@@ -140,9 +140,9 @@
             "id": 7,
             "name": "MODERN LAZY CAFFEE TABLE VERY LONG 7",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Chair",
@@ -164,9 +164,9 @@
             "id": 8,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 8 test test",
             "image": [
-                "/src/assets/imgs/test3.png",
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png"
+                "/assets/test3.png",
+                "/assets/test1.png",
+                "/assets/test2.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -187,9 +187,9 @@
             "id": 9,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 9 test short",
             "image": [
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test2.png",
+                "/assets/test1.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -210,9 +210,9 @@
             "id": 10,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 10",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -234,9 +234,9 @@
             "id": 11,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 11",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -257,9 +257,9 @@
             "id": 12,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 12",
             "image": [
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test2.png",
+                "/assets/test1.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -278,9 +278,9 @@
             "id": 13,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 13",
             "image": [
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test1.png",
+                "/assets/test2.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
@@ -302,9 +302,9 @@
             "id": 14,
             "name": "MODERN LAZY CAFFEE CHAIR VERY LONG 14",
             "image": [
-                "/src/assets/imgs/test2.png",
-                "/src/assets/imgs/test1.png",
-                "/src/assets/imgs/test3.png"
+                "/assets/test2.png",
+                "/assets/test1.png",
+                "/assets/test3.png"
             ],
             "category": {
                 "main": "Cabinet",
